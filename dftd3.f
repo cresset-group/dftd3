@@ -1533,7 +1533,11 @@ c DFT-D2
       open(unit=43,file='.tmpx')
       read(43,'(a)')ftmp
       close(43,status='delete')
+#ifdef _WIN32
+      call get_environment_variable("USERPROFILE", homedir)
+#else
       call get_environment_variable("HOME", homedir)
+#endif
       write (*,*) trim(homedir)
       write(dtmp,'(a,''/.dftd3par.'',a)')trim(homedir),trim(ftmp) 
       inquire(file=dtmp,exist=ex)
@@ -3856,7 +3860,11 @@ c write file gradient
       close(42)
       close(43)
 
+#ifdef _WIN32
+      call system('move gradient.tmp gradient')
+#else
       call system('mv gradient.tmp gradient')
+#endif
 
 c write file energy
       j=1
@@ -3889,7 +3897,11 @@ c write file energy
       close(42)
       close(43)
 
+#ifdef _WIN32
+      call system('move energy.tmp energy')
+#else
       call system('mv energy.tmp energy')
+#endif
 
       end subroutine wregrad
 
@@ -3898,7 +3910,11 @@ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
       subroutine stoprun(s)
       character*(*) s
       write(*,*)'program stopped due to: ',s
+#ifdef _WIN32
+      call system('type nul > dscf_problem')
+#else
       call system('touch dscf_problem')
+#endif
       stop 'must stop!'
       end subroutine stoprun
 
