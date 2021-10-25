@@ -9,15 +9,18 @@ Windows support has been added and the build system switched to CMake.
 # Build
 
 ## Windows
+```
 mkdir build
 cd build
 cmake -DCMAKE_Fortran_COMPILER=ifort -DCMAKE_INSTALL_PREFIX=install -G "NMake Makefiles" ..
 nmake
 nmake install
-
+```
 ## Linux
+```
 mkdir build
 cd build
 cmake3 -DCMAKE_Fortran_COMPILER=ifort -DCMAKE_INSTALL_PREFIX=install -G "Unix Makefiles" ..
 make
 make install
+```
